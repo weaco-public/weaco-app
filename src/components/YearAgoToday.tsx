@@ -1,12 +1,12 @@
-import styled, { css } from "@emotion/native";
-import React from "react";
-import { Image } from "react-native";
+import styled, { css } from '@emotion/native';
+import React from 'react';
+import { Image } from 'react-native';
 import {
   Default16BoldText,
   Gray10RegularText,
   TempHot50,
   White12BoldText,
-} from "./Common";
+} from './Common';
 
 function YearAgoToday() {
   return (
@@ -20,10 +20,12 @@ function YearAgoToday() {
           <White12BoldText>25°C</White12BoldText>
           <White12BoldText>29°C</White12BoldText>
         </TempWrap>
-        <Image
-          style={{ width: 164, height: 164 }}
-          source={require("../../assets/2022-07-08.jpg")}
-        />
+        <ImageView>
+          <Image
+            style={{ width: '100%', height: '100%' }}
+            source={require('../../assets/2022-07-08.jpg')}
+          />
+        </ImageView>
       </Wrap>
       <Wrap>
         <Title>
@@ -34,12 +36,15 @@ function YearAgoToday() {
           <White12BoldText>25°C</White12BoldText>
           <White12BoldText>29°C</White12BoldText>
         </TempWrap>
-        <Image
-          style={{ width: 164, height: 164 }}
-          source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/weco-8ff84.appspot.com/o/S9nPnnJhejVZ2HJsVVmYaTxTB732%2F918f5dc2-1af7-46f5-90e3-a019fa315a31?alt=media&token=e43bb9c0-f738-4cc5-a4a3-5b7a8381ef60",
-          }}
-        />
+        {' '}
+        <ImageView>
+          <Image
+            style={{ width: '100%', height: '100%' }}
+            source={{
+              uri: 'https://firebasestorage.googleapis.com/v0/b/weco-8ff84.appspot.com/o/S9nPnnJhejVZ2HJsVVmYaTxTB732%2F918f5dc2-1af7-46f5-90e3-a019fa315a31?alt=media&token=e43bb9c0-f738-4cc5-a4a3-5b7a8381ef60',
+            }}
+          />
+        </ImageView>
       </Wrap>
     </Container>
   );
@@ -55,6 +60,16 @@ const Container = styled.View`
   gap: 15px;
 `;
 
+const Wrap = styled.View`
+  flex: 1;
+  justify-content: flex-start;
+  align-items: stretch;
+`;
+
+const ImageView = styled.View`
+  min-height: 164px;
+`;
+
 const TempWrap = styled.View`
   display: flex;
   flex-direction: row;
@@ -64,11 +79,6 @@ const TempWrap = styled.View`
   height: 20px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-`;
-
-const Wrap = styled.View`
-  justify-content: flex-start;
-  align-items: stretch;
 `;
 
 const Title = styled.View`

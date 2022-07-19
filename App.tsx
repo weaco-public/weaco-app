@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
 import styled, { css } from "@emotion/native";
 import Nav from "./src/components/Nav";
-import Summaries from "./src/components/Summaries";
+import Indicator from "./src/components/Indicator";
 import Today from "./src/components/Today";
 import Tags from "./src/components/Tags";
 import React from "react";
@@ -9,21 +8,27 @@ import { Default16BoldText } from "./src/components/Common";
 import YearAgoToday from "./src/components/YearAgoToday";
 
 export default function App() {
+  let date = new Date();
+  let today = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+
   return (
     <Container>
       <Nav />
       <Search />
       <Title>
-        <Default16BoldText>2022-07-08</Default16BoldText>
+        <Default16BoldText>{today}</Default16BoldText>
         <TitleMore>Show All</TitleMore>
       </Title>
-      <Summaries />
+      <Indicator />
       <Today />
       <Title>
         <Default16BoldText>이슈 키워드</Default16BoldText>
       </Title>
       <Tags />
       <YearAgoToday />
+      <Title>
+        <Default16BoldText>실시간 날씨</Default16BoldText>
+      </Title>
     </Container>
   );
 }

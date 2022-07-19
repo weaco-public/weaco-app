@@ -4,10 +4,10 @@
     "slug": "weco-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/adaptive-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo512.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

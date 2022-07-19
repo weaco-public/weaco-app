@@ -5,7 +5,7 @@ import { TempHot50, White12BoldText } from "./Common";
 
 function Today() {
   return (
-    <Container>
+    <Container horizontal={true} showsHorizontalScrollIndicator={false}>
       <Wrap>
         <TempWrap style={TempHot50}>
           <White12BoldText>25°C</White12BoldText>
@@ -46,12 +46,11 @@ function Today() {
 
 export default Today;
 
-const Container = styled.View`
+const Container = styled.ScrollView`
+  width: 100%;
   flex-direction: row;
   margin: 20px 16px 0;
-  justify-content: center;
   align-self: flex-start;
-  gap: 10px;
 `;
 
 const TempWrap = styled.View`
@@ -60,7 +59,7 @@ const TempWrap = styled.View`
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
-  witdh: 300px;
+  width: 300px;
   height: 25px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -69,6 +68,7 @@ const TempWrap = styled.View`
 const Wrap = styled.View`
   width: 300px;
   height: 325px;
+  margin-right: 10px;
   justify-content: flex-start;
   align-items: stretch;
 `;
