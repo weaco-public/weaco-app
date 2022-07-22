@@ -1,15 +1,14 @@
-import styled, { css } from "@emotion/native";
+import styled from "@emotion/native";
 import Nav from "./src/components/Nav";
 import Indicator from "./src/components/Indicator";
 import Today from "./src/components/Today";
-import Tags from "./src/components/Tags";
 import React from "react";
 import { Default16BoldText } from "./src/components/Common";
 import YearAgoToday from "./src/components/YearAgoToday";
 
 export default function App() {
   let date = new Date();
-  let today = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+  let today: string = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 
   return (
     <Container>
@@ -21,10 +20,6 @@ export default function App() {
       </Title>
       <Indicator />
       <Today />
-      <Title>
-        <Default16BoldText>이슈 키워드</Default16BoldText>
-      </Title>
-      <Tags />
       <YearAgoToday />
       <Title>
         <Default16BoldText>실시간 날씨</Default16BoldText>

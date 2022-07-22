@@ -1,35 +1,41 @@
-import styled, { css } from "@emotion/native";
+import styled from "@emotion/native";
 import React from "react";
 import { Text } from "react-native";
+import {Default16BoldText} from "./Common";
 
-function Tags() {
+function Tags(props: any) {
+  const skipedKeyword = [
+    "오늘의날씨",
+    "오늘의경제",
+    "날씨",
+    "경제",
+    "뉴스",
+    "오늘날씨",
+    "서울날씨",
+    "시황",
+    "주식",
+    "코인",
+    "경제뉴스",
+    "미국증시",
+    "뉴욕증시",
+  ];
+
   return (
-    <Container>
-      <Tag>
-        <Text>삼성전자</Text>
-      </Tag>
-      <Tag>
-        <Text>대환대출</Text>
-      </Tag>
-      <Tag>
-        <Text>플랫폼</Text>
-      </Tag>
-      <Tag>
-        <Text>전월세</Text>
-      </Tag>
-      <Tag>
-        <Text>역전현상</Text>
-      </Tag>
-      <Tag>
-        <Text>캥거루족</Text>
-      </Tag>
-      <Tag>
-        <Text>실질소득</Text>
-      </Tag>
-      <Tag>
-        <Text>명목소득</Text>
-      </Tag>
-    </Container>
+    <>
+      <Title>
+        <Default16BoldText>이슈 키워드</Default16BoldText>
+      </Title>
+      <Container>
+
+        {props.tags.map((tag: string) =>
+            !skipedKeyword.includes(tag) && (
+              <Tag key={tag}>
+                <Text>{tag}</Text>
+              </Tag>
+            )
+        )}
+      </Container>
+    </>
   );
 }
 
@@ -43,8 +49,16 @@ const Container = styled.View`
 `;
 
 const Tag = styled.View`
-  padding: 10px 8px;
+  padding: 10px;
   background-color: #fff;
   border: 1px solid #eee;
   border-radius: 99px;
+`;
+
+const Title = styled.View`
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px;
 `;

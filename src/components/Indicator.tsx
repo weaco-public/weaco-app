@@ -68,7 +68,6 @@ function Indicator() {
         .then((response) => response.json())
         .then((json) => {
           setBtc(json[0].trade_price);
-          console.log(typeof btc);
           setLoading(false);
         });
   }, []);

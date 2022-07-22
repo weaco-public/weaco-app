@@ -1,47 +1,56 @@
-import styled, { css } from "@emotion/native";
-import React from "react";
+import styled from "@emotion/native";
+import React, {useEffect, useState} from "react";
 import { Image } from "react-native";
-import { TempHot50, White12BoldText } from "./Common";
+import {tempStyle, White12BoldText} from "./Common";
+import { dbService } from '../../fbase';
+import Tags from "./Tags";
+import {Weco} from "../models/weco";
+
 
 function Today() {
+  const [items, setItems] = useState([]);
+  const [newTags, setNewTags] = useState([]);
+
+  const itemCount = 5;
+
+  useEffect(() => {
+    dbService
+        .collection("items")
+        .where('creatorId', '==', process.env.REACT_APP_ADMIN)
+        .orderBy("date", "desc")
+        .limit(itemCount)
+        .onSnapshot((snapshot: any) => {
+          setNewTags(snapshot.docs[0].data().tags);
+          let itemArray = snapshot.docs.map((doc: any) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setItems(itemArray);
+      });
+  }, []);
+
   return (
-    <Container horizontal={true} showsHorizontalScrollIndicator={false}>
-      <Wrap>
-        <TempWrap style={TempHot50}>
-          <White12BoldText>25°C</White12BoldText>
-          <White12BoldText>29°C</White12BoldText>
-        </TempWrap>
-        <Image
-          style={{ width: 300, height: 300 }}
-          source={require("../../assets/2022-07-08.jpg")}
-        />
-      </Wrap>
-      <Wrap>
-        <TempWrap style={TempHot50}>
-          <White12BoldText>25°C</White12BoldText>
-          <White12BoldText>29°C</White12BoldText>
-        </TempWrap>
-        <Image
-          style={{ width: 300, height: 300 }}
-          source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/weco-8ff84.appspot.com/o/S9nPnnJhejVZ2HJsVVmYaTxTB732%2F918f5dc2-1af7-46f5-90e3-a019fa315a31?alt=media&token=e43bb9c0-f738-4cc5-a4a3-5b7a8381ef60",
-          }}
-        />
-      </Wrap>
-      <Wrap>
-        <TempWrap style={TempHot50}>
-          <White12BoldText>25°C</White12BoldText>
-          <White12BoldText>29°C</White12BoldText>
-        </TempWrap>
-        <Image
-          style={{ width: 300, height: 300 }}
-          source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/weco-8ff84.appspot.com/o/S9nPnnJhejVZ2HJsVVmYaTxTB732%2F918f5dc2-1af7-46f5-90e3-a019fa315a31?alt=media&token=e43bb9c0-f738-4cc5-a4a3-5b7a8381ef60",
-          }}
-        />
-      </Wrap>
-    </Container>
-  );
+    <>
+      <Container horizontal={true} showsHorizontalScrollIndicator={false}>
+        {items && (
+          items.map(
+            (item: Weco) =>
+              <Wrap key={item.id}>
+                <TempWrap style={tempStyle(item.lowestTemp,item.highestTemp)}>
+                  <White12BoldText>{item.lowestTemp}°C</White12BoldText>
+                  <White12BoldText>{item.highestTemp}°C</White12BoldText>
+                </TempWrap>
+                <Image
+                    style={{ width: 300, height: 300 }}
+                    source={{uri: item.attachmentUrl}}
+                />
+              </Wrap>
+          )
+        )}
+      </Container>
+      <Tags tags={newTags} />
+  </>
+);
 }
 
 export default Today;
