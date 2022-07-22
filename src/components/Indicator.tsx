@@ -7,7 +7,7 @@ function Indicator() {
   const [text, setText] = useState('');
   const [sp500, setSp500] = useState("");
   const [dow, setDow] = useState("");
-  const [nasdoq, setNasdoq] = useState("");
+  const [nasdaq, setNasdaq] = useState("");
   const [wti, setWti] = useState("");
   const [dxy, setDxy] = useState("");
   const [vix, setVix] = useState("");
@@ -23,7 +23,7 @@ function Indicator() {
         if (snapshot.docs.length === 0) {
           return setText('');
         }
-        const item = snapshot.docs.map((doc) => ({
+        const item: any = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
@@ -39,7 +39,7 @@ function Indicator() {
     const line = lineDataOrigin.replaceAll(")", "");
     setSp500(sliceLine(line, "S&amp;P500"));
     setDow(sliceLine(line, "다우"));
-    setNasdoq(sliceLine(line, "나스닥"));
+    setNasdaq(sliceLine(line, "나스닥"));
     setWti(sliceLine(line, "WTI"));
     setDxy(sliceLine(line, "달러인덱스"));
     setVix(sliceLine(line, "VIX"));
@@ -53,11 +53,29 @@ function Indicator() {
   };
   const sp500Array = sp500.split("(");
   const dowArray = dow.split("(");
-  const nasdoqArray = nasdoq.split("(");
+  const nasdaqArray = nasdaq.split("(");
   const wtiArray = wti.split("(");
   const dxyArray = dxy.split("(");
   const vixArray = vix.split("(");
   const goldArray = gold.split("(");
+
+
+  const [loading, setLoading] = useState(true);
+  const [btc, setBtc] = useState("");
+
+  useEffect(() => {
+    fetch("https://api.upbit.com/v1/ticker?markets=KRW-BTC")
+        .then((response) => response.json())
+        .then((json) => {
+          setBtc(json[0].trade_price);
+          console.log(typeof btc);
+          setLoading(false);
+        });
+  }, []);
+
+  function comma(text: string): string {
+    return text.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   return (
     <Container horizontal showsHorizontalScrollIndicator={false}>
@@ -77,9 +95,9 @@ function Indicator() {
       </Summary>
       <Summary>
         <Title>나스닥</Title>
-        <Title style={nasdoq.indexOf("-") > 0 ? minus : plus}>{nasdoqArray[0]}</Title>
-        <Percent style={nasdoq.indexOf("-") > 0 ? minusBg : plusBg}>
-          <White12BoldText>{nasdoqArray[1]}</White12BoldText>
+        <Title style={nasdaq.indexOf("-") > 0 ? minus : plus}>{nasdaqArray[0]}</Title>
+        <Percent style={nasdaq.indexOf("-") > 0 ? minusBg : plusBg}>
+          <White12BoldText>{nasdaqArray[1]}</White12BoldText>
         </Percent>
       </Summary>
       <Summary>
@@ -108,6 +126,13 @@ function Indicator() {
         <Title style={gold.indexOf("-") > 0 ? minus : plus}>{goldArray[0]}</Title>
         <Percent style={gold.indexOf("-") > 0 ? minusBg : plusBg}>
           <White12BoldText>{goldArray[1]}</White12BoldText>
+        </Percent>
+      </Summary>
+      <Summary>
+        <Title>비트코인</Title>
+        {loading ? <Title>Loading...</Title> : <Title>{comma(btc)}원</Title>}
+        <Percent>
+          <White12BoldText>실시간</White12BoldText>
         </Percent>
       </Summary>
     </Container>
