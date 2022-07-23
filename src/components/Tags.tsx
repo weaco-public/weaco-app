@@ -1,7 +1,7 @@
 import styled from "@emotion/native";
 import React from "react";
 import { Text } from "react-native";
-import { Default16BoldText } from "components/Common";
+import { Default16BoldText } from "./Common";
 
 function Tags(props: any) {
   const skipedKeyword = [

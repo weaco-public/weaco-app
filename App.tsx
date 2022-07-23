@@ -1,12 +1,12 @@
-import styled from "@emotion/native";
-import Nav from "./components/Nav";
-import Indicator from "./components/Indicator";
-import Today from "./components/Today";
 import React from "react";
-import { Default16BoldText } from "./components/Common";
-import YearAgoToday from "./components/YearAgoToday";
+import styled from "@emotion/native";
+import Nav from "./src/components/Nav";
+import Indicator from "./src/components/Indicator";
+import Today from "./src/components/Today";
+import YearAgoToday from "./src/components/YearAgoToday";
+import Weather from "./src/components/Weather";
+import { Default16BoldText } from "./src/components/Common";
 import { RefreshControl } from "react-native";
-import Weather from "./components/Weather";
 
 const wait = (timeout: any) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));

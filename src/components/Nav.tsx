@@ -2,7 +2,7 @@ import styled, { css } from "@emotion/native";
 import React from "react";
 import { Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { Default16BoldText } from "components/Common";
+import { Default16BoldText } from "./Common";
 
 function Nav() {
   const myIcon = <Icon name="menu" size={24} color="#3A3A56" />;
@@ -11,7 +11,7 @@ function Nav() {
     <Container>
       <Image
         style={{ width: 28, height: 28 }}
-        source={require("assets/logo.png")}
+        source={require("../../assets/logo.png")}
       />
       <List>
         <Default16BoldText style={active}>오늘의 날씨와 경제</Default16BoldText>

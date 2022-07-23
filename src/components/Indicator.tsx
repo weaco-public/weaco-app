@@ -1,7 +1,7 @@
 import styled, { css } from "@emotion/native";
 import React, { useEffect, useState } from "react";
-import { White12BoldText } from "components/Common";
-import { dbService } from "fbase";
+import { White12BoldText } from "./Common";
+import { dbService } from "../fbase";
 
 function Indicator() {
   const [text, setText] = useState("");

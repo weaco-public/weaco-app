@@ -7,8 +7,8 @@ import {
   tempStyle,
   White12BoldText,
 } from "./Common";
-import { dbService } from "fbase";
-import { Weco } from "models/weco";
+import { dbService } from "../fbase";
+import { Weco } from "../models/weco";
 
 function YearAgoToday() {
   let now = new Date();

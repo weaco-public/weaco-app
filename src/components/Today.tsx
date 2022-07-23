@@ -1,10 +1,10 @@
 import styled from "@emotion/native";
 import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
-import { tempStyle, White12BoldText } from "components/Common";
-import { dbService } from "fbase";
-import Tags from "components/Tags";
-import { Weco } from "models/weco";
+import { tempStyle, White12BoldText } from "./Common";
+import { dbService } from "../fbase";
+import Tags from "./Tags";
+import { Weco } from "../models/weco";
 
 function Today() {
   const [items, setItems] = useState([]);
