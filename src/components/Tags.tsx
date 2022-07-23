@@ -1,7 +1,7 @@
 import styled from "@emotion/native";
 import React from "react";
 import { Text } from "react-native";
-import {Default16BoldText} from "./Common";
+import { Default16BoldText } from "components/Common";
 
 function Tags(props: any) {
   const skipedKeyword = [
@@ -26,8 +26,8 @@ function Tags(props: any) {
         <Default16BoldText>이슈 키워드</Default16BoldText>
       </Title>
       <Container>
-
-        {props.tags.map((tag: string) =>
+        {props.tags.map(
+          (tag: string) =>
             !skipedKeyword.includes(tag) && (
               <Tag key={tag}>
                 <Text>{tag}</Text>

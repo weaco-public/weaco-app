@@ -1,11 +1,10 @@
 import styled from "@emotion/native";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
-import {tempStyle, White12BoldText} from "./Common";
-import { dbService } from '../../fbase';
-import Tags from "./Tags";
-import {Weco} from "../models/weco";
-
+import { tempStyle, White12BoldText } from "components/Common";
+import { dbService } from "fbase";
+import Tags from "components/Tags";
+import { Weco } from "models/weco";
 
 function Today() {
   const [items, setItems] = useState([]);
@@ -15,42 +14,45 @@ function Today() {
 
   useEffect(() => {
     dbService
-        .collection("items")
-        .where('creatorId', '==', process.env.REACT_APP_ADMIN)
-        .orderBy("date", "desc")
-        .limit(itemCount)
-        .onSnapshot((snapshot: any) => {
-          setNewTags(snapshot.docs[0].data().tags);
-          let itemArray = snapshot.docs.map((doc: any) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setItems(itemArray);
+      .collection("items")
+      .where("creatorId", "==", process.env.REACT_APP_ADMIN)
+      .orderBy("date", "desc")
+      .limit(itemCount)
+      .onSnapshot((snapshot: any) => {
+        setNewTags(snapshot.docs[0].data().tags);
+        let itemArray = snapshot.docs.map((doc: any) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setItems(itemArray);
       });
   }, []);
 
   return (
     <>
       <Container horizontal={true} showsHorizontalScrollIndicator={false}>
-        {items && (
-          items.map(
-            (item: Weco) =>
-              <Wrap key={item.id}>
-                <TempWrap style={tempStyle(item.lowestTemp,item.highestTemp)}>
-                  <White12BoldText>{item.lowestTemp}°C</White12BoldText>
-                  <White12BoldText>{item.highestTemp}°C</White12BoldText>
-                </TempWrap>
-                <Image
-                    style={{ width: 300, height: 300 }}
-                    source={{uri: item.attachmentUrl}}
-                />
-              </Wrap>
-          )
-        )}
+        {items &&
+          items.map((item: Weco) => (
+            <Wrap key={item.id}>
+              <TempWrap style={tempStyle(item.lowestTemp, item.highestTemp)}>
+                <White12BoldText>{item.lowestTemp}°C</White12BoldText>
+                <White12BoldText>{item.highestTemp}°C</White12BoldText>
+              </TempWrap>
+              <Image
+                style={{
+                  width: 300,
+                  height: 300,
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                }}
+                source={{ uri: item.attachmentUrl }}
+              />
+            </Wrap>
+          ))}
       </Container>
       <Tags tags={newTags} />
-  </>
-);
+    </>
+  );
 }
 
 export default Today;

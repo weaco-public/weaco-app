@@ -1,10 +1,10 @@
-import styled, { css } from '@emotion/native';
-import React, { useEffect, useState } from 'react';
-import { White12BoldText } from './Common';
-import { dbService } from '../../fbase';
+import styled, { css } from "@emotion/native";
+import React, { useEffect, useState } from "react";
+import { White12BoldText } from "components/Common";
+import { dbService } from "fbase";
 
 function Indicator() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [sp500, setSp500] = useState("");
   const [dow, setDow] = useState("");
   const [nasdaq, setNasdaq] = useState("");
@@ -15,13 +15,13 @@ function Indicator() {
 
   useEffect(() => {
     dbService
-      .collection('items')
-      .where('creatorId', '==', process.env.REACT_APP_ADMIN)
-      .orderBy('date', 'desc')
+      .collection("items")
+      .where("creatorId", "==", process.env.REACT_APP_ADMIN)
+      .orderBy("date", "desc")
       .limit(1)
       .onSnapshot((snapshot) => {
         if (snapshot.docs.length === 0) {
-          return setText('');
+          return setText("");
         }
         const item: any = snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -59,17 +59,16 @@ function Indicator() {
   const vixArray = vix.split("(");
   const goldArray = gold.split("(");
 
-
   const [loading, setLoading] = useState(true);
   const [btc, setBtc] = useState("");
 
   useEffect(() => {
     fetch("https://api.upbit.com/v1/ticker?markets=KRW-BTC")
-        .then((response) => response.json())
-        .then((json) => {
-          setBtc(json[0].trade_price);
-          setLoading(false);
-        });
+      .then((response) => response.json())
+      .then((json) => {
+        setBtc(json[0].trade_price);
+        setLoading(false);
+      });
   }, []);
 
   function comma(text: string): string {
@@ -80,7 +79,9 @@ function Indicator() {
     <Container horizontal showsHorizontalScrollIndicator={false}>
       <Summary>
         <Title>S&P500</Title>
-        <Title style={sp500.indexOf("-") > 0 ? minus : plus}>{sp500Array[0]}</Title>
+        <Title style={sp500.indexOf("-") > 0 ? minus : plus}>
+          {sp500Array[0]}
+        </Title>
         <Percent style={sp500.indexOf("-") > 0 ? minusBg : plusBg}>
           <White12BoldText>{sp500Array[1]}</White12BoldText>
         </Percent>
@@ -94,7 +95,9 @@ function Indicator() {
       </Summary>
       <Summary>
         <Title>나스닥</Title>
-        <Title style={nasdaq.indexOf("-") > 0 ? minus : plus}>{nasdaqArray[0]}</Title>
+        <Title style={nasdaq.indexOf("-") > 0 ? minus : plus}>
+          {nasdaqArray[0]}
+        </Title>
         <Percent style={nasdaq.indexOf("-") > 0 ? minusBg : plusBg}>
           <White12BoldText>{nasdaqArray[1]}</White12BoldText>
         </Percent>
@@ -122,7 +125,9 @@ function Indicator() {
       </Summary>
       <Summary>
         <Title>금</Title>
-        <Title style={gold.indexOf("-") > 0 ? minus : plus}>{goldArray[0]}</Title>
+        <Title style={gold.indexOf("-") > 0 ? minus : plus}>
+          {goldArray[0]}
+        </Title>
         <Percent style={gold.indexOf("-") > 0 ? minusBg : plusBg}>
           <White12BoldText>{goldArray[1]}</White12BoldText>
         </Percent>
