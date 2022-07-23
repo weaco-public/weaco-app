@@ -6,6 +6,12 @@ export const Default16BoldText = styled.Text`
   font-weight: 700;
 `;
 
+export const Default14ReqularText = styled.Text`
+  color: #3a3a56;
+  font-size: 13px;
+  font-weight: 400;
+`;
+
 export const White12BoldText = styled.Text`
   color: #fff;
   font-size: 12px;
@@ -58,4 +64,4 @@ export const tempStyle = (low: string, high: string) => {
   else if (mid >= 30 && mid < 40) return TempHot30;
   else if (mid >= 40 && mid < 50) return TempHot40;
   else if (mid >= 50) return TempHot50;
-}
+};

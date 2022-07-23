@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/native";
-import { Default16BoldText } from "./Common";
+import {
+  Default14ReqularText,
+  Default16BoldText,
+  Gray10RegularText,
+} from "./Common";
 import { Picker } from "@react-native-picker/picker";
+import { Image, Text, View } from "react-native";
 
 function Weather() {
   const API_KEY = process.env.REACT_APP_WEATHER;
@@ -51,22 +56,18 @@ function Weather() {
 
   const pickerRef = useRef();
 
-  function open() {
-    pickerRef.current.focus();
-  }
-
-  function close() {
-    pickerRef.current.blur();
-  }
-
-  console.log(res);
-
   return (
     <Container>
       <Title>
         <Default16BoldText>실시간 날씨</Default16BoldText>
         <DropdownWrap>
           <Picker
+            style={{
+              borderWidth: 1,
+              borderColor: "#eee",
+              padding: 10,
+              borderRadius: 10,
+            }}
             ref={pickerRef}
             selectedValue={city}
             onValueChange={(itemValue, itemIndex) => setCity(itemValue)}
@@ -100,6 +101,42 @@ function Weather() {
           </Picker>
         </DropdownWrap>
       </Title>
+      {loading ? (
+        "Loading..."
+      ) : (
+        <>
+          <TitleWrap>
+            <Image
+              style={{
+                width: 50,
+                height: 50,
+              }}
+              source={{
+                uri:
+                  "https://openweathermap.org/img/wn/" +
+                  res.weather[0].icon +
+                  ".png",
+              }}
+            />
+            <Text>{res.main.temp}°C</Text>
+            <Text>{res.weather[0].description}</Text>
+          </TitleWrap>
+          <SubWrap>
+            <View>
+              <Gray10RegularText>습도</Gray10RegularText>
+              <Default14ReqularText>{res.main.humidity} %</Default14ReqularText>
+            </View>
+            <View>
+              <Gray10RegularText>바람</Gray10RegularText>
+              <Default14ReqularText>{res.wind.speed} m/s</Default14ReqularText>
+            </View>
+            <View>
+              <Gray10RegularText>구름</Gray10RegularText>
+              <Default14ReqularText>{res.clouds.all} %</Default14ReqularText>
+            </View>
+          </SubWrap>
+        </>
+      )}
     </Container>
   );
 }
@@ -108,9 +145,7 @@ export default Weather;
 
 const Container = styled.View`
   margin: 0 16px;
-  flex-direction: row;
   flex-wrap: wrap;
-  gap: 10px;
 `;
 
 const DropdownWrap = styled.View`
@@ -122,25 +157,24 @@ const DropdownWrap = styled.View`
 const TitleWrap = styled.View`
   align-self: stretch;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  margin: 16px;
 `;
 
 const SubWrap = styled.View`
   align-self: stretch;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  margin: 16px;
+  margin-bottom: 30px;
+  padding: 8px 0;
   background-color: #fff;
   border-radius: 99px;
 `;
 
 const Title = styled.View`
-  align-self: stretch;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 16px;
+  margin: 16px 16px 8px;
 `;
