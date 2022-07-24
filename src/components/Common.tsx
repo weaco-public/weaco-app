@@ -24,6 +24,18 @@ export const Gray10RegularText = styled.Text`
   font-weight: 400;
 `;
 
+export const Title = styled.View`
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 16px 16px;
+`;
+
+export const TitleMore = styled.Text`
+  font-size: 12px;
+`;
+
 export const TempNone = css`
   background-color: #35405e;
   color: #35405e;

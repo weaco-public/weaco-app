@@ -1,12 +1,24 @@
 import styled from "@emotion/native";
 import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
-import { tempStyle, White12BoldText } from "./Common";
+import {
+  Default16BoldText,
+  tempStyle,
+  White12BoldText,
+  Title,
+  TitleMore,
+} from "./Common";
 import { dbService } from "../fbase";
 import Tags from "./Tags";
 import { Weco } from "../models/weco";
+import Indicator from "./Indicator";
 
-function Today() {
+const Today = (props: any) => {
+  let date = new Date();
+  let today: string = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`;
+
   const [items, setItems] = useState([]);
   const [newTags, setNewTags] = useState([]);
 
@@ -30,6 +42,11 @@ function Today() {
 
   return (
     <>
+      <Title>
+        <Default16BoldText>{today}</Default16BoldText>
+        <TitleMore>Show All</TitleMore>
+      </Title>
+      <Indicator />
       <Container horizontal={true} showsHorizontalScrollIndicator={false}>
         {items &&
           items.map((item: Weco) => (
@@ -53,7 +70,7 @@ function Today() {
       <Tags tags={newTags} />
     </>
   );
-}
+};
 
 export default Today;
 

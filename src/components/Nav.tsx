@@ -4,7 +4,7 @@ import { Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Default16BoldText } from "./Common";
 
-function Nav() {
+const Nav = () => {
   const myIcon = <Icon name="menu" size={24} color="#3A3A56" />;
 
   return (
@@ -20,7 +20,7 @@ function Nav() {
       <Menu>{myIcon}</Menu>
     </Container>
   );
-}
+};
 
 export default Nav;
 

@@ -10,7 +10,7 @@ import {
 import { dbService } from "../fbase";
 import { Weco } from "../models/weco";
 
-function YearAgoToday() {
+function YearAgoToday(props: any) {
   let now = new Date();
   let lastYear = new Date(now.setFullYear(now.getFullYear() - 1))
     .toISOString()
@@ -62,7 +62,9 @@ function YearAgoToday() {
           <Wrap key={item.id}>
             <Title>
               <Default16BoldText>1년 전</Default16BoldText>
-              <Gray10RegularText>{item.date}</Gray10RegularText>
+              <Gray10RegularText style={{ marginLeft: 10 }}>
+                {item.date}
+              </Gray10RegularText>
             </Title>
             <TempWrap style={tempStyle(item.lowestTemp, item.highestTemp)}>
               <White12BoldText>{item.lowestTemp}°C</White12BoldText>
@@ -87,7 +89,9 @@ function YearAgoToday() {
           <Wrap key={item.id}>
             <Title>
               <Default16BoldText>2년 전</Default16BoldText>
-              <Gray10RegularText>{item.date}</Gray10RegularText>
+              <Gray10RegularText style={{ marginLeft: 10 }}>
+                {item.date}
+              </Gray10RegularText>
             </Title>
             <TempWrap style={tempStyle(item.lowestTemp, item.highestTemp)}>
               <White12BoldText>{item.lowestTemp}°C</White12BoldText>
@@ -114,7 +118,7 @@ export default YearAgoToday;
 
 const Container = styled.View`
   flex-direction: row;
-  margin: 20px 16px;
+  margin: 32px 16px;
   justify-content: center;
   align-self: flex-start;
   gap: 15px;
@@ -143,8 +147,8 @@ const TempWrap = styled.View`
 
 const Title = styled.View`
   width: 164px;
-  margin: 20px 0 12px;
+  margin-bottom: 16px;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: baseline;
 `;

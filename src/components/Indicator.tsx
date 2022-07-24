@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { White12BoldText } from "./Common";
 import { dbService } from "../fbase";
 
-function Indicator() {
+const Indicator = () => {
   const [text, setText] = useState("");
   const [sp500, setSp500] = useState("");
   const [dow, setDow] = useState("");
@@ -141,7 +141,7 @@ function Indicator() {
       </Summary>
     </Container>
   );
-}
+};
 
 export default Indicator;
 

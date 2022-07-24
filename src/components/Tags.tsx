@@ -1,9 +1,9 @@
 import styled from "@emotion/native";
 import React from "react";
 import { Text } from "react-native";
-import { Default16BoldText } from "./Common";
+import { Default16BoldText, Title } from "./Common";
 
-function Tags(props: any) {
+const Tags = (props: any) => {
   const skipedKeyword = [
     "오늘의날씨",
     "오늘의경제",
@@ -22,7 +22,7 @@ function Tags(props: any) {
 
   return (
     <>
-      <Title>
+      <Title style={{ marginTop: 16 }}>
         <Default16BoldText>이슈 키워드</Default16BoldText>
       </Title>
       <Container>
@@ -37,7 +37,7 @@ function Tags(props: any) {
       </Container>
     </>
   );
-}
+};
 
 export default Tags;
 
@@ -53,12 +53,4 @@ const Tag = styled.View`
   background-color: #fff;
   border: 1px solid #eee;
   border-radius: 99px;
-`;
-
-const Title = styled.View`
-  align-self: stretch;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 16px;
 `;

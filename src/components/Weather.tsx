@@ -8,7 +8,7 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { Image, Text, View } from "react-native";
 
-function Weather() {
+const Weather = (props: any) => {
   const API_KEY = process.env.REACT_APP_WEATHER;
   const [loading, setLoading] = useState(true);
   const [city, setCity] = useState("");
@@ -38,7 +38,7 @@ function Weather() {
       });
   };
 
-  const onGeoLocale = (position: any) => {
+  const onGeoLocale = (position: any): void => {
     const { latitude, longitude } = position.coords;
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=kr`;
     fetch(url)
@@ -72,7 +72,7 @@ function Weather() {
             selectedValue={city}
             onValueChange={(itemValue, itemIndex) => setCity(itemValue)}
           >
-            <Picker.Item label={"도시별로 보기"} />
+            <Picker.Item label={"현재위치 변경"} />
             <Picker.Item label="서울" value="Seoul" />
             <Picker.Item label="부산" value="Busan" />
             <Picker.Item label="인천" value="Incheon" />
@@ -102,7 +102,9 @@ function Weather() {
         </DropdownWrap>
       </Title>
       {loading ? (
-        "Loading..."
+        <SubWrap>
+          <Default16BoldText>"Loading..."</Default16BoldText>
+        </SubWrap>
       ) : (
         <>
           <TitleWrap>
@@ -118,8 +120,8 @@ function Weather() {
                   ".png",
               }}
             />
-            <Text>{res.main.temp}°C</Text>
-            <Text>{res.weather[0].description}</Text>
+            <Default16BoldText>{res.main.temp}°C</Default16BoldText>
+            <Default16BoldText>{res.weather[0].description}</Default16BoldText>
           </TitleWrap>
           <SubWrap>
             <View>
@@ -139,7 +141,7 @@ function Weather() {
       )}
     </Container>
   );
-}
+};
 
 export default Weather;
 
@@ -176,5 +178,5 @@ const Title = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 16px 16px 8px;
+  margin: 8px 0;
 `;
